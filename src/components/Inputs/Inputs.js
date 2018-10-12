@@ -1,17 +1,17 @@
 import React from 'react';
 import TextResult from '../TextResult/TextResult';
+// import update from 'immutability-helper';
+import uuid from 'uuid';
 
 class Inputs extends React.Component {
   state = {
-      persons: [
-          {
-            inputs: {
-                date: '',
-                name: ''
-            },
-            sign: ''
-          }
-      ],
+      person: {
+          id: null,
+          date: '',
+          name: '',
+          sign: ''
+      },
+      persons: [],
       displayErrors: false
   }
 
@@ -63,21 +63,25 @@ class Inputs extends React.Component {
       const form = event.target;
       const data = new FormData(form);
       const updatedPersonInputs = {};
+      let sign = '';
 
+      // create an object with date and name inputs from form, ex. {date: "02/20", name: "Tom"}
       for ( let name of data.keys()) {
           const inputValue = form.elements[name].value;
           updatedPersonInputs[name] = inputValue;
       }
 
-      const sign = this.checkZodiac(updatedPersonInputs.date);
+      sign = this.checkZodiac(updatedPersonInputs.date);
+
 
       this.setState({
-          persons: [
-            {
-                inputs: updatedPersonInputs,
-                  sign: sign
-            }
-          ],
+          person: {
+              id: uuid(),
+              date: updatedPersonInputs.date,
+              name: updatedPersonInputs.name,
+              sign: sign
+          },
+          persons: [...this.state.persons, this.state.person],
           displayErrors: false
       });
 
@@ -92,7 +96,18 @@ class Inputs extends React.Component {
   render() {
 
     const { persons, displayErrors } = this.state;
-    console.log(this.state);
+
+    const textResult = persons.map(person => {
+        if ( person.date !== '' && person.name !== '' ) {
+            return (
+                <li key={person.id}>
+                    <TextResult sign={person.sign} name={person.name} />
+                </li>
+            )
+        }
+
+    });
+
     return (
         <React.Fragment>
             {/* "noValidate" prevents the browser from interfering when an invalid form is submitted so that we can “interfere” ourselves
@@ -116,10 +131,10 @@ class Inputs extends React.Component {
 
                 <input type="submit" />
             </form>
+            <ul>
+                { textResult }
+            </ul>
 
-            {
-                persons[0].sign ? <TextResult sign={persons[0].sign} name={persons[0].inputs.name}/> : null
-            }
 
         </React.Fragment>
     );

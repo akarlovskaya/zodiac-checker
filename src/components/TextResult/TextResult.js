@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const textResult = (props) => {
   return (
-      <div>
+      <React.Fragment>
           <p>The zodiac for <strong>{props.name}</strong> is <strong>{props.sign}</strong></p>
-      </div>
+      </React.Fragment>
   );
 }
 
