@@ -3,11 +3,15 @@ import TextResult from '../TextResult/TextResult';
 
 class Inputs extends React.Component {
   state = {
-      inputs: {
-          date: '',
-          name: ''
-      },
-      sign: '',
+      persons: [
+          {
+            inputs: {
+                date: '',
+                name: ''
+            },
+            sign: ''
+          }
+      ],
       displayErrors: false
   }
 
@@ -46,7 +50,7 @@ class Inputs extends React.Component {
         z = 'none';
     }
     return z;
-}
+  }
 
   handleSubmit = (event) => {
       event.preventDefault();
@@ -58,18 +62,22 @@ class Inputs extends React.Component {
 
       const form = event.target;
       const data = new FormData(form);
-      const updatedState = {...this.state.inputs};
+      const updatedPersonInputs = {};
 
       for ( let name of data.keys()) {
-          const input = form.elements[name];
-          updatedState[name] = input.value;
+          const inputValue = form.elements[name].value;
+          updatedPersonInputs[name] = inputValue;
       }
 
-      const sign = this.checkZodiac(updatedState.date);
+      const sign = this.checkZodiac(updatedPersonInputs.date);
 
       this.setState({
-          inputs: updatedState,
-          sign: sign,
+          persons: [
+            {
+                inputs: updatedPersonInputs,
+                  sign: sign
+            }
+          ],
           displayErrors: false
       });
 
@@ -82,8 +90,9 @@ class Inputs extends React.Component {
   }
 
   render() {
-    const { displayErrors } = this.state;
-    console.log(displayErrors);
+
+    const { persons, displayErrors } = this.state;
+    console.log(this.state);
     return (
         <React.Fragment>
             {/* "noValidate" prevents the browser from interfering when an invalid form is submitted so that we can “interfere” ourselves
@@ -107,8 +116,9 @@ class Inputs extends React.Component {
 
                 <input type="submit" />
             </form>
+
             {
-                this.state.sign ? <TextResult sign={this.state.sign} name={this.state.inputs.name}/> : null
+                persons[0].sign ? <TextResult sign={persons[0].sign} name={persons[0].inputs.name}/> : null
             }
 
         </React.Fragment>
