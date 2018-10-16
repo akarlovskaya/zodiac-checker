@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 const textResult = (props) => {
   return (
       <React.Fragment>
-          <p>The zodiac for <strong>{props.name}</strong> is <strong>{props.sign}</strong></p>
+          <p>The zodiac for <strong>{props.currentPerson.name}</strong> is <strong>{props.currentPerson.sign}</strong></p>
+          <ul>
+              {props.listOfPersons}
+          </ul>
       </React.Fragment>
   );
 }

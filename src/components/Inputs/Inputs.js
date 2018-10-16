@@ -35,9 +35,7 @@ class Inputs extends React.Component {
       }
 
       const {month, day} = this.convertToDayAndMonth(updatedPersonInputs.date);
-
       sign = this.checkZodiac(month, day);
-
 
       this.setState({
           person: {
@@ -153,14 +151,14 @@ class Inputs extends React.Component {
 
   render() {
 
-    const { persons, displayErrors } = this.state;
+    const { person, persons, displayErrors } = this.state;
     console.log(this.state);
 
-    const textResult = persons.map(person => {
+    const listOfPersons = persons.map(person => {
         if ( person.date !== '' && person.name !== '' ) {
             return (
                 <li key={person.id}>
-                    <TextResult sign={person.sign} name={person.name} />
+                    The zodiac sign for <strong>{person.name}</strong> is <strong>{person.sign}</strong>
                 </li>
             )
         }
@@ -189,9 +187,7 @@ class Inputs extends React.Component {
 
                 <input type="submit" />
             </form>
-            <ul>
-                { textResult }
-            </ul>
+            { person.id ? <TextResult listOfPersons={listOfPersons} currentPerson={person}/> : null }
 
 
         </React.Fragment>
