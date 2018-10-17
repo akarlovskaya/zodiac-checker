@@ -1,5 +1,6 @@
 import React from 'react';
 import TextResult from '../TextResult/TextResult';
+import PieChart from '../Chart/Chart';
 // import update from 'immutability-helper';
 import uuid from 'uuid';
 
@@ -54,7 +55,7 @@ class Inputs extends React.Component {
   convertToDayAndMonth = (str) => {
       const date = str.split('/');
       const months = [ "january", "february", "march", "april", "may", "june",
-    "july", "August", "september", "october", "november", "december" ];
+    "july", "august", "september", "october", "november", "december" ];
       const month = months[new Date(str).getMonth()];
       const day = parseInt(date[1], 10);
 
@@ -140,7 +141,7 @@ class Inputs extends React.Component {
             zodiac_sign = "Sagittarius";
         }
     }
-    console.log(zodiac_sign);
+    // console.log(zodiac_sign);
     return zodiac_sign;
   }
 
@@ -150,9 +151,8 @@ class Inputs extends React.Component {
   }
 
   render() {
-
     const { person, persons, displayErrors } = this.state;
-    console.log(this.state);
+    // console.log(persons);
 
     const listOfPersons = persons.map(person => {
         if ( person.date !== '' && person.name !== '' ) {
@@ -187,7 +187,17 @@ class Inputs extends React.Component {
 
                 <input type="submit" />
             </form>
-            { person.id ? <TextResult listOfPersons={listOfPersons} currentPerson={person}/> : null }
+            { person.id ?
+                <React.Fragment>
+                    <TextResult listOfPersons={listOfPersons} currentPerson={person}/>
+
+                </React.Fragment>
+            : null }
+
+            <PieChart persons={persons} />
+
+
+
 
 
         </React.Fragment>
