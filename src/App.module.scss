@@ -1,0 +1,25 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #e5e5e5;
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+
+
+    input[type="submit"] {
+        background-color: red;
+    }
+}
+
+.displayErrors input:invalid {
+    border-color: red;
+}
