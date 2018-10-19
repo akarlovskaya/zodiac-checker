@@ -3,37 +3,82 @@ import styles from './inputs.module.scss';
 
 class Inputs extends React.Component {
 
-  render() {
+    constructor() {
+        super();
+
+        this.state = {
+            date: '',
+            name: '',
+            isDateValid: true,
+            isNameValid: true
+        };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    // isNameValid(name)
+    // {
+    //     //
+    // }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        const { name, date } = this.state;
+        const { persons } = this.props;
+
+        if(!this.isNameValid(name)) {
+            this.setState({ isNameValid: false });
+            // NotifyJS.showError("The name is invalid");
+            return;
+        }
+        else if(date === '' || date.match()) {
+
+        }
+        else {
+
+            this.props.handleSubmit(name, date);
+            this.setState({ date: '', name: '', isDateValid: true, isNameValid: true });
+        }
+    }
+
+    onChange(type, event) {
+        this.setState({ [type]: event.target.value });
+    }
+
+    render() {
+
+        const { date, name, isDateValid, isNameValid } = this.state;
+        const { handleSubmit, displayErrors } = this.props;
 
     return (
-        <React.Fragment>
-            {/* "noValidate" prevents the browser from interfering when an invalid form is submitted so that we can “interfere” ourselves
-            https://medium.com/@everdimension/how-to-handle-forms-with-just-react-ac066c48bd4f */}
+        <form onSubmit={handleSubmit}
+              noValidate
+              className={ !isDateValid || !isNameValid ? styles.displayErrors : '' }>
+              <p>{displayErrors}</p>
+            <label htmlFor="date">Month and Day: </label>
+            {/* <i class="fas fa-birthday-cake"></i> */}
+            <input id="date"
+                   type="text"
+                   name="date"
+                   value={date}
+                   onChange={event => this.onChange('date', event)}
+                   placeholder="MM/DD"
+                   pattern="\d{2}\/\d{2}" // (0[1-9]|1[0-2])\/([0-1][0-9])
+                   required /> <br/>
 
-            <form onSubmit={this.props.handleSubmit}
-                  noValidate
-                  className={ this.props.displayErrors ? styles.displayErrors : '' }>
-                  <p>{this.props.displayErrors}</p>
-                <label htmlFor="date">Month and Day: </label>
-                {/* <i class="fas fa-birthday-cake"></i> */}
-                <input id="date"
-                       type="text"
-                       name="date"
-                       placeholder="MM/DD"
-                       pattern="\d{2}\/\d{2}"
-                       required /> <br/>
+            <label htmlFor="name">Name: </label>
+            <input id="name"
+                   type="text"
+                   name="name"
+                   value={name}
+                   onChange={event => this.onChange('name', event)}
+                   required /> <br/>
 
-                <label htmlFor="name">Name: </label>
-                <input id="name"
-                       type="text"
-                       name="name"
-                       required /> <br/>
-
-                <input type="submit" />
-            </form>
-        </React.Fragment>
+            <input type="submit" />
+        </form>
     );
-  }
+    }
 }
 
 export default Inputs;

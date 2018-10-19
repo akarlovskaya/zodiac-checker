@@ -5,67 +5,29 @@ import TextResult from './components/TextResult/TextResult';
 import Table from './components/Table/Table';
 import PieChart from './components/Chart/Chart';
 import uuid from 'uuid';
-// import { CSSTransitionGroup } from 'react-transition-group';
 
 class App extends Component {
     state = {
         person: {
             id: null,
-            date: '',
-            name: '',
             sign: ''
         },
         persons: [],
         displayErrors: false
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        if (!event.target.checkValidity()) {
-          // form is invalid
-          this.setState({ displayErrors: true });
-          return;
-        }
+    onSubmit = (name, date) => {
+        // event.preventDefault();
 
-        const form = event.target;
-        const data = new FormData(form);
-        const updatedPersonInputs = {};
-        let sign = '';
-
-        // create an object with date and name inputs from form, ex. {date: "02/20", name: "Tom"}
-        for ( let name of data.keys()) {
-            const inputValue = form.elements[name].value;
-            updatedPersonInputs[name] = inputValue;
-        }
-
-        const {month, day} = this.convertToDayAndMonth(updatedPersonInputs.date);
-        sign = this.checkZodiac(month, day);
-
-        this.setState({
-            person: {
-                id: uuid(),
-                date: updatedPersonInputs.date,
-                name: updatedPersonInputs.name,
-                sign: sign
-            },
-            persons: [...this.state.persons, this.state.person],
-            displayErrors: false
-        });
-
-        this.clearInputs();
-    }
-
-    convertToDayAndMonth = (str) => {
-        const date = str.split('/');
-        const months = [ "january", "february", "march", "april", "may", "june",
-      "july", "august", "september", "october", "november", "december" ];
-        const month = months[new Date(str).getMonth()];
-        const day = parseInt(date[1], 10);
-
-        return {
-            month,
-            day
-        }
+        // const sign = this.checkZodiac(date);
+        // const person = {id: uuid(), date, name, sign};
+        //
+        // this.setState({
+        //     person,
+        //     persons: this.state.persons.concat(person),
+        //     displayErrors: false
+        // });
+        console.log('from onSubmit');
     }
 
     checkZodiac = (month, day) => {
@@ -148,13 +110,10 @@ class App extends Component {
       return zodiac_sign;
     }
 
-    clearInputs = () => {
-        document.getElementById("date").value = '';
-        document.getElementById("name").value = '';
-    }
+
 
     render() {
-
+        console.log(this.state);
       const { person, persons, displayErrors } = this.state;
       const listOfPersons = persons.map(person => {
           if ( person.date !== '' && person.name !== '' ) {
@@ -173,14 +132,16 @@ class App extends Component {
           <p>Enter Birthday and Name of a person</p>
           <hr/>
 
-          <Inputs handleSubmit={this.handleSubmit} displayErrors={displayErrors}/>
+          <Inputs handleSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
 
           { person.id ? <TextResult currentPerson={person}/> : null }
 
           <div
               className={`${styles.resultWrapper}
                           ${styles.fadein}
-                          ${listOfPersons.length > 1 ? styles.fadeinActive : ""}`}>
+                          ${listOfPersons.length > 0 ? styles.fadeinActive : ""}
+                          `}
+                          >
               <Table listOfPersons={listOfPersons}/>
               <PieChart persons={persons} />
           </div>
