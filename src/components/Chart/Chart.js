@@ -27,18 +27,12 @@ class PieChart extends React.Component {
             }
         }
 
-        if (data.length > 1) {
-            return (
-                <Chart
-                    chartType="PieChart"
-                    data={data}
-                    width="80%"
-                    height="400px"
-                />
-            );
-        } else {
-            return null;
-        }
+        return (
+            <Chart
+                chartType="PieChart"
+                data={data}
+            />
+        );
     }
 }
 

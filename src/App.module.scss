@@ -5,21 +5,43 @@ body {
     padding: 0;
 }
 
+.fadein {
+    opacity: 0;
+}
+
+.fadein.fadeinActive {
+    opacity: 1;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
 .App {
-    max-width: 800px;
+    max-width: 900px;
     margin: 50px auto;
     padding: 20px;
     background-color: white;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 2px;
+    min-height: 600px;
 
-
-    input[type="submit"] {
-        background-color: red;
+    .resultWrapper {
+        margin-top: 30px;
     }
 }
 
-.displayErrors input:invalid {
-    border-color: red;
+@media only screen and (min-width: 800px) {
+    .App {
+        padding: 50px;
+
+        .resultWrapper {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+    }
+
 }
