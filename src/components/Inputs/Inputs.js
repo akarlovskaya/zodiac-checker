@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './inputs.module.scss';
 
 class Inputs extends React.Component {
+    // props: handleOnSubmit(), persons[], displayErrors Boolen
 
     constructor() {
         super();
@@ -13,7 +14,7 @@ class Inputs extends React.Component {
             isNameValid: true
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     // isNameValid(name)
@@ -21,25 +22,26 @@ class Inputs extends React.Component {
     //     //
     // }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
 
-        const { name, date } = this.state;
-        const { persons } = this.props;
+        // const { name, date } = this.state;
+        // console.log(name, date);
+        // const { persons } = this.props;
+        //
+        // if(!this.isNameValid(name)) {
+        //     this.setState({ isNameValid: false });
+        //     // NotifyJS.showError("The name is invalid");
+        //     return;
+        // }
+        // else if(date === '' || date.match()) {
+        //
+        // }
+        // else {
 
-        if(!this.isNameValid(name)) {
-            this.setState({ isNameValid: false });
-            // NotifyJS.showError("The name is invalid");
-            return;
-        }
-        else if(date === '' || date.match()) {
-
-        }
-        else {
-
-            this.props.handleSubmit(name, date);
-            this.setState({ date: '', name: '', isDateValid: true, isNameValid: true });
-        }
+            this.props.handleOnSubmit('anna', '01 oct');
+            // this.setState({ date: '', name: '', isDateValid: true, isNameValid: true });
+        // }
     }
 
     onChange(type, event) {
@@ -47,12 +49,13 @@ class Inputs extends React.Component {
     }
 
     render() {
-
+        console.log('this.state: ', this.state);
+        console.log('this.props: ', this.props);
         const { date, name, isDateValid, isNameValid } = this.state;
         const { handleSubmit, displayErrors } = this.props;
 
     return (
-        <form onSubmit={handleSubmit}
+        <form onSubmit={this.handleSubmit}
               noValidate
               className={ !isDateValid || !isNameValid ? styles.displayErrors : '' }>
               <p>{displayErrors}</p>

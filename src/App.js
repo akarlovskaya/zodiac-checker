@@ -20,14 +20,14 @@ class App extends Component {
         // event.preventDefault();
 
         // const sign = this.checkZodiac(date);
-        // const person = {id: uuid(), date, name, sign};
-        //
+        // const person = {id: uuid(), date, name, sign: 'signtest'};
+        // //
         // this.setState({
         //     person,
         //     persons: this.state.persons.concat(person),
         //     displayErrors: false
         // });
-        console.log('from onSubmit');
+        console.log(name, date);
     }
 
     checkZodiac = (month, day) => {
@@ -132,7 +132,7 @@ class App extends Component {
           <p>Enter Birthday and Name of a person</p>
           <hr/>
 
-          <Inputs handleSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
+          <Inputs handleOnSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
 
           { person.id ? <TextResult currentPerson={person}/> : null }
 
