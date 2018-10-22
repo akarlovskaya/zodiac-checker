@@ -5,6 +5,7 @@
   "dependencies": {
     "immutability-helper": "^2.8.1",
     "node-sass": "^4.9.4",
+    "notifyjs": "^3.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-fontawesome": "^1.6.1",

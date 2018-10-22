@@ -113,7 +113,6 @@ class App extends Component {
 
 
     render() {
-        console.log(this.state);
       const { person, persons, displayErrors } = this.state;
       const listOfPersons = persons.map(person => {
           if ( person.date !== '' && person.name !== '' ) {
