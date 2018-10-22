@@ -17,21 +17,23 @@ class App extends Component {
     }
 
     onSubmit = (name, date) => {
-        // event.preventDefault();
+        const sign = this.checkZodiac(date);
+        const person = {id: uuid(), date, name, sign};
 
-        // const sign = this.checkZodiac(date);
-        // const person = {id: uuid(), date, name, sign: 'signtest'};
-        // //
-        // this.setState({
-        //     person,
-        //     persons: this.state.persons.concat(person),
-        //     displayErrors: false
-        // });
-        console.log(name, date);
+        this.setState({
+            person,
+            persons: this.state.persons.concat(person),
+            displayErrors: false
+        });
+        console.log(this.state);
     }
 
-    checkZodiac = (month, day) => {
+    checkZodiac = (str) => {
       let zodiac_sign = '';
+      const date = str.split('/');
+      const months = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ];
+      const month = months[new Date(str).getMonth()];
+      const day = parseInt(date[1], 10);
 
       if (month === 'december') {
           if (day < 22) {

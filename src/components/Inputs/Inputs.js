@@ -15,59 +15,48 @@ class Inputs extends React.Component {
     }
 
     isNameValid(name) {
-        if ( name.length <= 1 ) {
-            return false;
-        } else {
-            return true;
-        }
+        const nameRegex = /^[a-zA-Z ]{3,30}$/;
+        return name.match(nameRegex);
     }
 
-    // '02/10'
+    // input '02/10'
     isDateValid(date) {
-        // const dateArr = date.split('/'); // ["02", "10"]
-        const regex = new RegExp('/^(0[1-9]|1[012])/([012]\d|3[01])$', 'g') ;
-        console.log('in isDateValid');
-        console.log(regex);
+        const dateArr = date.split('/'); // ["02", "10"]
+        const dayAndMonthRegex = /^\d{2}\/\d{2}$/;
+        const month = parseInt(dateArr[0], 10);
+        const day = parseInt(dateArr[1], 10);
 
-        if ( date.match(regex) ) {
-            console.log('matched');
-            // return true;
+        if ( date.match(dayAndMonthRegex) ) {
+            return month >= 1 && month <= 12 && day >= 1 && day <= 31;
         } else {
-            console.log('not matched:', date.match(regex));
-            // return false;
-            // console.log('not matched');
-            // this.showError('#nameError', '<span>😐</span> Error: Enter date as MM/DD');
+            return false;
         }
-      //   const months = [ "january", "february", "march", "april", "may", "june",
-      // "july", "august", "september", "october", "november", "december" ];
-      //   console.log(dateArr);
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-
         const { name, date } = this.state;
-        // console.log(name, date);
-        // const { persons } = this.props;
 
+        if ( name === '' || date === "") {
+            this.setState({ isNameValid: false, isDateValid: false });
+            return;
+        }
 
         if( !this.isNameValid(name) ) {
             this.setState({ isNameValid: false });
-            this.showError('#nameError', '<span>😐</span> Error: Name should be more then three chars');
-            // NotifyJS.showError("The name is invalid");
+            this.showError('#nameError', '<span>😐</span> Error: Name should contain only letters and minimum three characters');
             return;
         }
-        else if( date === '' || !this.isDateValid(date) ) {
+        else if( !this.isDateValid(date) ) {
             this.setState({ isDateValid: false });
             this.showError('#dateError', '<span>😐</span> Error: Enter valid date in MM/DD format');
             return;
         }
-        // else {
-            //
-            // this.props.handleOnSubmit(name, date);
-            // this.setState({ date: '', name: '', isDateValid: true, isNameValid: true });
-        // }
-        console.log('this.state: ', this.state);
+        else {
+            this.props.handleOnSubmit(name, date);
+            this.setState({ date: '', name: '', isDateValid: true, isNameValid: true });
+        }
+
         this.clearInputs();
     }
 
@@ -83,19 +72,7 @@ class Inputs extends React.Component {
 
             setTimeout(() => {
                 errorEl.classList.remove(`${styles.shown}`);
-            }, 3000);
-        }
-    }
-
-    convertToDayAndMonth = (str) => {
-        const date = str.split('/');
-        const months = [ "january", "february", "march", "april", "may", "june",
-      "july", "august", "september", "october", "november", "december" ];
-        const month = months[new Date(str).getMonth()];
-        const day = parseInt(date[1], 10);
-         return {
-            month,
-            day
+            }, 4000);
         }
     }
 
@@ -105,16 +82,13 @@ class Inputs extends React.Component {
     }
 
     render() {
-        // console.log('this.state: ', this.state);
-        // console.log('this.props: ', this.props);
         const { date, name, isDateValid, isNameValid } = this.state;
-        const { handleSubmit, displayErrors } = this.props;
 
     return (
         <form onSubmit={this.handleSubmit}
               noValidate
-              className={ !isDateValid || !isNameValid ? styles.displayErrors : '' }>
-              <p>{displayErrors}</p>
+              className={ !isDateValid && !isNameValid ? styles.displayErrors : '' }
+              >
               <label htmlFor="name">Name<sup>*</sup> </label>
               <input id="name"
                      type="text"
@@ -122,10 +96,7 @@ class Inputs extends React.Component {
                      value={name}
                      onChange={event => this.onChange('name', event)}
                      required />
-                     <small className={styles.error} id="nameError">
-                         {/* <span>😐</span> */}
-                         {/* Error: Name should be more then three chars */}
-                     </small>
+                     <small className={styles.error} id="nameError"></small>
                      <br/>
             <label htmlFor="date">Month and Day<sup>*</sup> </label>
             {/* <i class="fas fa-birthday-cake"></i> */}
@@ -135,17 +106,9 @@ class Inputs extends React.Component {
                    value={date}
                    onChange={event => this.onChange('date', event)}
                    placeholder="MM/DD"
-                   pattern="\d{2}\/\d{2}" // (0[1-9]|1[0-2])\/([0-1][0-9])
                    required />
-                   <small className={styles.error} id="dateError">
-                       {/* <span>😐</span> */}
-                       {/* Error: Name should be more then three chars */}
-                   </small>
-
+                   <small className={styles.error} id="dateError"></small>
                    <br/>
-
-
-
             <input type="submit" />
         </form>
     );

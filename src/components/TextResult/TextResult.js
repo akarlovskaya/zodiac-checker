@@ -11,19 +11,18 @@ const textResult = (props) => {
 
     const {sign, name} = currentPerson;
 
-    return (<React.Fragment>
-        <p>The zodiac for
-            <strong className={styles.accentColor}>
-                {name}
-            </strong>
-            <span>is</span>
-            <span className={'myicons-' + sign}/>
-            <span data-icon={sign}>
-                {sign}
-            </span>
-        </p>
-        <span ></span>
-    </React.Fragment>);
+    return (
+        <React.Fragment>
+            <p>The zodiac for <strong className={styles.accentColor}>{name}
+                </strong> is <strong>{sign}</strong>
+                {/* <span className={'myicons-' + sign}/> */}
+                {/* <span data-icon={sign}>
+                    {sign}
+                </span> */}
+            </p>
+            <span ></span>
+        </React.Fragment>
+    );
 }
 
 export default textResult;
