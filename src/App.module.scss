@@ -7,12 +7,16 @@ body {
 
 .fadein {
     opacity: 0;
+
+    &.fadeinActive {
+        opacity: 1;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+    }
 }
 
-.fadein.fadeinActive {
-    opacity: 1;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+.accentColor {
+    color: #9237b6;
 }
 
 .App {
@@ -43,5 +47,4 @@ body {
             align-items: center;
         }
     }
-
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './textResult.module.scss';
+import styles from '../../App.module.scss';
 
 const textResult = (props) => {
     const {currentPerson} = props;

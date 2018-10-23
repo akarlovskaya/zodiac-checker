@@ -11,12 +11,12 @@
     color: white;
     border: 1px solid red;
     font-weight: bold;
-}
 
-.error.shown {
-    opacity: 1;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+    &.shown {
+        opacity: 1;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+    }
 }
 
 label {
