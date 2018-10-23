@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './inputs.module.scss';
+import styles from './form.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBirthdayCake, faUser } from '@fortawesome/free-solid-svg-icons';
 
-class Inputs extends React.Component {
-    // props: handleOnSubmit(), persons[], displayErrors Boolen
-
+class Form extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +37,7 @@ class Inputs extends React.Component {
         event.preventDefault();
         const { name, date } = this.state;
 
-        if ( name === '' || date === "") {
+        if ( name === '' || date === '') {
             this.setState({ isNameValid: false, isDateValid: false });
             return;
         }
@@ -90,6 +90,9 @@ class Inputs extends React.Component {
               className={ !isDateValid && !isNameValid ? styles.displayErrors : '' }
               >
               <label htmlFor="name">Name<sup>*</sup> </label>
+              <span className={styles.icons}>
+                  <FontAwesomeIcon icon={faUser} />
+              </span>
               <input id="name"
                      type="text"
                      name="name"
@@ -99,7 +102,9 @@ class Inputs extends React.Component {
                      <small className={styles.error} id="nameError"></small>
                      <br/>
             <label htmlFor="date">Month and Day<sup>*</sup> </label>
-            {/* <i class="fas fa-birthday-cake"></i> */}
+            <span className={styles.icons}>
+                <FontAwesomeIcon icon={faBirthdayCake} />
+            </span>
             <input id="date"
                    type="text"
                    name="date"
@@ -115,4 +120,4 @@ class Inputs extends React.Component {
     }
 }
 
-export default Inputs;
+export default Form;

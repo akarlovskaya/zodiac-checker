@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './App.module.scss';
-import Inputs from './components/Inputs/Inputs';
+import Form from './components/Form/Form';
 import TextResult from './components/TextResult/TextResult';
 import Table from './components/Table/Table';
 import PieChart from './components/Chart/Chart';
@@ -25,7 +25,6 @@ class App extends Component {
             persons: this.state.persons.concat(person),
             displayErrors: false
         });
-        console.log(this.state);
     }
 
     checkZodiac = (str) => {
@@ -108,7 +107,6 @@ class App extends Component {
               zodiac_sign = "Sagittarius";
           }
       }
-      // console.log(zodiac_sign);
       return zodiac_sign;
     }
 
@@ -117,11 +115,12 @@ class App extends Component {
     render() {
       const { person, persons, displayErrors } = this.state;
       const listOfPersons = persons.map(person => {
-          if ( person.date !== '' && person.name !== '' ) {
+          if ( person.date !== '' && person.name !== '' && person.date !== '' ) {
               return (
                   <tr key={person.id}>
                       <td>{person.name}</td>
                       <td>{person.sign}</td>
+                      <td>{person.date}</td>
                   </tr>
               )
           }
@@ -129,11 +128,11 @@ class App extends Component {
 
     return (
       <div className={styles.App}>
-          <h1>Title here</h1>
-          <p>Enter Birthday and Name of a person</p>
+          <h1>Zodiac Checker</h1>
+          <p>Enter Name and Birthday of a person</p>
           <hr/>
 
-          <Inputs handleOnSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
+          <Form handleOnSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
 
           { person.id ? <TextResult currentPerson={person}/> : null }
 
