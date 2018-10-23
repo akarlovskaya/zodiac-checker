@@ -4,6 +4,7 @@ import Form from './components/Form/Form';
 import TextResult from './components/TextResult/TextResult';
 import Table from './components/Table/Table';
 import PieChart from './components/Chart/Chart';
+import Footer from './components/Footer/Footer';
 import uuid from 'uuid';
 
 class App extends Component {
@@ -127,26 +128,29 @@ class App extends Component {
       });
 
     return (
-      <div className={styles.App}>
-          <h1>Zodiac Checker</h1>
-          <p>Enter Name and Birthday of a person</p>
-          <hr/>
+    <div>
+        <div className={styles.App}>
+            <h1>Zodiac Checker</h1>
+            <p>Enter Name and Birthday of a person</p>
+            <hr/>
 
-          <Form handleOnSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
+            <Form handleOnSubmit={this.onSubmit} persons={persons} displayErrors={displayErrors}/>
 
-          { person.id ? <TextResult currentPerson={person}/> : null }
+            { person.id ? <TextResult currentPerson={person}/> : null }
 
-          <div
-              className={`${styles.resultWrapper}
-                          ${styles.fadein}
-                          ${listOfPersons.length > 0 ? styles.fadeinActive : ""}
-                          `}
-                          >
-              <Table listOfPersons={listOfPersons}/>
-              <PieChart persons={persons} />
-          </div>
+            <div
+                className={`${styles.resultWrapper}
+                            ${styles.fadein}
+                            ${listOfPersons.length > 0 ? styles.fadeinActive : ""}
+                            `}
+                            >
+                <Table listOfPersons={listOfPersons}/>
+                <PieChart persons={persons} />
+            </div>
+        </div>
+        <Footer />
+    </div>
 
-      </div>
     );
   }
 }

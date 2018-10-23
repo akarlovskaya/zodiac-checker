@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './form.module.scss';
+import '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake, faUser } from '@fortawesome/free-solid-svg-icons';
 
