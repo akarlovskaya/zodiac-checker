@@ -2,10 +2,12 @@
   "name": "zodiac-checker",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://akarlovskaya.github.io/zodiac-checker",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
     "@fortawesome/react-fontawesome": "^0.1.3",
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.9.4",
     "q": "^1.5.1",
     "react": "^16.5.2",
@@ -15,6 +17,7 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
+    "deploy": "npm run build&&gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
