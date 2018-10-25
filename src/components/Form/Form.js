@@ -27,8 +27,17 @@ class Form extends React.Component {
         const month = parseInt(dateArr[0], 10);
         const day = parseInt(dateArr[1], 10);
 
+        console.log(month);
         if ( date.match(dayAndMonthRegex) ) {
-            return month >= 1 && month <= 12 && day >= 1 && day <= 31;
+            if (month >= 1 && month <= 12) {
+                if ( month === 2) {
+                    return day >= 1 && day <= 29;
+                } else {
+                    return day >= 1 && day <= 31;
+                }
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
